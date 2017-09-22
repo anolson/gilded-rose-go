@@ -1,7 +1,5 @@
 package item
 
-import "fmt"
-
 // Item describes an item sold by the Gilded Rose Inn
 type Item struct {
 	name     string
@@ -23,7 +21,6 @@ func New(name string, days, quality int) *Item {
 
 // Tick ages the item by a day
 func (i *Item) Tick() {
-	fmt.Printf("i = %+v\n", i)
 	if i.name != "Aged Brie" && i.name != "Backstage passes to a TAFKAL80ETC concert" {
 		if i.quality > 0 {
 			if i.name != "Sulfuras, Hand of Ragnaros" {
@@ -69,5 +66,4 @@ func (i *Item) Tick() {
 			}
 		}
 	}
-	fmt.Printf("i = %+v\n", i)
 }
