@@ -1,23 +1,69 @@
 package main
 
-import "github.com/robphoenix/gilded-rose/item"
-
-var items = []struct {
-	name    string
-	days    int
-	quality int
-}{
-	{"+5 Dexterity Vest", 10, 20},
-	{"Aged Brie", 2, 0},
-	{"Elixir of the Mongoose", 5, 7},
-	{"Sulfuras, Hand of Ragnaros", 0, 80},
-	{"Backstage passes to a TAFKAL80ETC concert", 15, 20},
-	{"Conjured Mana Cake", 3, 6},
+// Item describes an item sold by the Gilded Rose Inn
+type Item struct {
+	name     string
+	daysLeft int
+	quality  int
 }
 
-func main() {
-	for _, v := range items {
-		item := item.New(v.name, v.days, v.quality)
-		item.Tick()
+// New creates a new Item
+func New(name string, days, quality int) *Item {
+	return &Item{
+		name:     name,
+		daysLeft: days,
+		quality:  quality,
+	}
+}
+
+// TODO: add stringer
+// TODO: add example tests
+
+// Tick ages the item by a day
+func (i *Item) Tick() {
+	if i.name != "Aged Brie" && i.name != "Backstage passes to a TAFKAL80ETC concert" {
+		if i.quality > 0 {
+			if i.name != "Sulfuras, Hand of Ragnaros" {
+				i.quality = i.quality - 1
+			}
+		}
+	} else {
+		if i.quality < 50 {
+			i.quality = i.quality + 1
+			if i.name == "Backstage passes to a TAFKAL80ETC concert" {
+				if i.daysLeft < 11 {
+					if i.quality < 50 {
+						i.quality = i.quality + 1
+					}
+				}
+				if i.daysLeft < 6 {
+					if i.quality < 50 {
+						i.quality = i.quality + 1
+					}
+				}
+			}
+		}
+	}
+
+	if i.name != "Sulfuras, Hand of Ragnaros" {
+		i.daysLeft = i.daysLeft - 1
+	}
+
+	if i.daysLeft < 0 {
+		if i.name != "Aged Brie" {
+			if i.name != "Backstage passes to a TAFKAL80ETC concert" {
+				if i.quality > 0 {
+					if i.name != "Sulfuras, Hand of Ragnaros" {
+						i.quality = i.quality - 1
+					}
+				}
+			} else {
+				i.quality = i.quality - i.quality
+			}
+		} else {
+			if i.quality < 50 {
+				i.quality = i.quality + 1
+			}
+		}
 	}
 }
