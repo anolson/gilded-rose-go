@@ -53,14 +53,6 @@ refactoring. The idea is not to re-write the code from scratch, but rather to
 practice designing tests, taking small steps, running the tests often, and
 incrementally improving the design.
 
-## Better Code Hub
-
-I analysed this repo according to the clean code standards on [Better Code
-Hub](https://bettercodehub.com) just to get an independent opinion of how bad
-the code is. Perhaps unsurprisingly, the compliance score is low!
-
-[![BCH compliance](https://bettercodehub.com/edge/badge/emilybache/GildedRose-Refactoring-Kata?branch=master)](https://bettercodehub.com/)
-
 # Gilded Rose Requirements Specification
 
 Hi and welcome to team Gilded Rose. As you know, we are a small inn with a prime
