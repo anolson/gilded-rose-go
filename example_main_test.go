@@ -34,6 +34,9 @@ func ExampleGildedRose() {
 	// fmt.Println(item)
 	// item.Tick()
 	// fmt.Println(item)
+	// // When you're ready add the following 2 lines to the end of the Output below.
+	// // Conjured Mana Cake: 5 days left, quality is 5
+	// // Conjured Mana Cake: 4 days left, quality is 3
 
 	// Output:
 	// normal: 5 days left, quality is 5

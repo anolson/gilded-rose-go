@@ -18,11 +18,12 @@ func New(name string, days, quality int) *Item {
 	}
 }
 
+// String implements the Stringer interface
 func (i *Item) String() string {
 	return fmt.Sprintf("%s: %d days left, quality is %d", i.name, i.daysLeft, i.quality)
 }
 
-// Tick ages the item by a day
+// Tick ages the item by a day, and updates the quality of the item
 func (i *Item) Tick() {
 	if i.name != "Aged Brie" && i.name != "Backstage passes to a TAFKAL80ETC concert" {
 		if i.quality > 0 {
