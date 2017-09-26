@@ -22,8 +22,6 @@ func (i *Item) String() string {
 	return fmt.Sprintf("%s: %d days left, quality is %d", i.name, i.daysLeft, i.quality)
 }
 
-// TODO: add example tests
-
 // Tick ages the item by a day
 func (i *Item) Tick() {
 	if i.name != "Aged Brie" && i.name != "Backstage passes to a TAFKAL80ETC concert" {
