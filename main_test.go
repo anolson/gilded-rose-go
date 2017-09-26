@@ -49,7 +49,7 @@ func TestGildedRose(t *testing.T) {
 		item := New(tt.name, tt.days, tt.quality)
 		item.Tick()
 		if item.quality != tt.expected {
-			t.Fatalf("\n%s %s\nexpected quality: %d\nactual quality: %d", tt.name, tt.description, tt.quality, item.quality)
+			t.Fatalf("\n%s %s\nexpected quality: %d\nactual quality: %d", tt.name, tt.description, tt.expected, item.quality)
 		}
 		if item.name == "Sulfuras, Hand of Ragnaros" {
 			if item.daysLeft != tt.days {
