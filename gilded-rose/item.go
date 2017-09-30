@@ -15,6 +15,16 @@ type Item struct {
 	quality int
 }
 
+// DaysRemaining returns the days left to sell the item in
+func (i *Item) DaysRemaining() int {
+	return i.days
+}
+
+// Quality returns the quality of the item
+func (i *Item) Quality() int {
+	return i.quality
+}
+
 // Tick updates the quality and days remaining
 func (i Item) Tick() {
 
