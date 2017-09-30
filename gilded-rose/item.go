@@ -14,6 +14,17 @@ func (i *Item) String() string {
 	return fmt.Sprintf("%s: %d days left, quality is %d", i.name, i.days, i.quality)
 }
 
+func (i *Item) normalTick() {
+	i.days--
+	if i.quality == 0 {
+		return
+	}
+	i.quality--
+	if i.days <= 0 {
+		i.quality--
+	}
+}
+
 // New creates a new Item
 func New(name string, days, quality int) *Item {
 	return &Item{
@@ -26,6 +37,12 @@ func New(name string, days, quality int) *Item {
 // UpdateQuality ages the item by a day, and updates the quality of the item
 func UpdateQuality(items []*Item) {
 	for _, item := range items {
+
+		if item.name == "normal" {
+			item.normalTick()
+			continue
+		}
+
 		if item.name != "Aged Brie" && item.name != "Backstage passes to a TAFKAL80ETC concert" {
 			if item.quality > 0 {
 				if item.name != "Sulfuras, Hand of Ragnaros" {
