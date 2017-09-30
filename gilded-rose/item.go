@@ -72,19 +72,17 @@ func New(name string, days, quality int) *Item {
 // UpdateQuality ages the item by a day, and updates the quality of the item
 func UpdateQuality(items []*Item) {
 	for _, item := range items {
-		if item.name == "normal" {
+		switch item.name {
+		case "normal":
 			item.normalTick()
 			continue
-		}
-		if item.name == "Aged Brie" {
+		case "Aged Brie":
 			item.brieTick()
 			continue
-		}
-		if item.name == "Sulfuras, Hand of Ragnaros" {
+		case "Sulfuras, Hand of Ragnaros":
 			item.sulfurasTick()
 			continue
-		}
-		if item.name == "Backstage passes to a TAFKAL80ETC concert" {
+		case "Backstage passes to a TAFKAL80ETC concert":
 			item.backstageTick()
 			continue
 		}
