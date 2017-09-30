@@ -1,73 +1,36 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
 
-// Item describes an item sold by the Gilded Rose Inn
-type Item struct {
+	gildedrose "github.com/robphoenix/gilded-rose/gilded-rose"
+)
+
+var things = []struct {
 	name    string
-	days    int
+	sellIn  int
 	quality int
+}{
+	{"+5 Dexterity Vest", 10, 20},
+	{"Aged Brie", 2, 0},
+	{"Elixir of the Mongoose", 5, 7},
+	{"Sulfuras, Hand of Ragnaros", 0, 80},
+	{"Backstage passes to a TAFKAL80ETC concert", 15, 20},
+	// {"Conjured Mana Cake", 3, 6},
 }
 
-// New creates a new Item
-func New(name string, days, quality int) *Item {
-	return &Item{
-		name:    name,
-		days:    days,
-		quality: quality,
-	}
-}
+func main() {
+	var items []*gildedrose.Item
 
-// String implements the Stringer interface
-func (i *Item) String() string {
-	return fmt.Sprintf("%s: %d days left, quality is %d", i.name, i.days, i.quality)
-}
-
-// Tick ages the item by a day, and updates the quality of the item
-func (i *Item) Tick() {
-	if i.name != "Aged Brie" && i.name != "Backstage passes to a TAFKAL80ETC concert" {
-		if i.quality > 0 {
-			if i.name != "Sulfuras, Hand of Ragnaros" {
-				i.quality = i.quality - 1
-			}
-		}
-	} else {
-		if i.quality < 50 {
-			i.quality = i.quality + 1
-			if i.name == "Backstage passes to a TAFKAL80ETC concert" {
-				if i.days < 11 {
-					if i.quality < 50 {
-						i.quality = i.quality + 1
-					}
-				}
-				if i.days < 6 {
-					if i.quality < 50 {
-						i.quality = i.quality + 1
-					}
-				}
-			}
-		}
+	for _, thing := range things {
+		item := gildedrose.New(thing.name, thing.sellIn, thing.quality)
+		items = append(items, item)
+		fmt.Println(item)
 	}
 
-	if i.name != "Sulfuras, Hand of Ragnaros" {
-		i.days = i.days - 1
-	}
+	gildedrose.UpdateQuality(items...)
 
-	if i.days < 0 {
-		if i.name != "Aged Brie" {
-			if i.name != "Backstage passes to a TAFKAL80ETC concert" {
-				if i.quality > 0 {
-					if i.name != "Sulfuras, Hand of Ragnaros" {
-						i.quality = i.quality - 1
-					}
-				}
-			} else {
-				i.quality = i.quality - i.quality
-			}
-		} else {
-			if i.quality < 50 {
-				i.quality = i.quality + 1
-			}
-		}
+	for _, item := range items {
+		fmt.Println(item)
 	}
 }
