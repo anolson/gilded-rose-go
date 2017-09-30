@@ -71,16 +71,6 @@ func (i Brie) Tick() {
 	}
 }
 
-// Sulfuras is "Sulfuras, Hand of Ragnaros"
-type Sulfuras struct {
-	*Item
-}
-
-// Tick updates the quality and days remaining
-func (i Sulfuras) Tick() {
-
-}
-
 // Backstage is "Backstage passes to a TAFKAL80ETC concert"
 type Backstage struct {
 	*Item
@@ -123,10 +113,10 @@ func UpdateQuality(items ...*Item) {
 			t = Normal{item}
 		case "Aged Brie":
 			t = Brie{item}
-		case "Sulfuras, Hand of Ragnaros":
-			t = Sulfuras{item}
 		case "Backstage passes to a TAFKAL80ETC concert":
 			t = Backstage{item}
+		default:
+			t = item
 		}
 		t.Tick()
 	}
