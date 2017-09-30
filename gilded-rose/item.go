@@ -14,7 +14,13 @@ func (i *Item) String() string {
 	return fmt.Sprintf("%s: %d days left, quality is %d", i.name, i.days, i.quality)
 }
 
-func (i *Item) normalTick() {
+// Normal is a normal item
+type Normal struct {
+	*Item
+}
+
+// Tick updates the quality and days remaining
+func (i *Normal) Tick() {
 	i.days--
 	if i.quality == 0 {
 		return
@@ -25,7 +31,13 @@ func (i *Item) normalTick() {
 	}
 }
 
-func (i *Item) brieTick() {
+// Brie is an "Aged Brie"
+type Brie struct {
+	*Item
+}
+
+// Tick updates the quality and days remaining
+func (i *Brie) Tick() {
 	i.days--
 	if i.quality >= 50 {
 		return
@@ -38,11 +50,23 @@ func (i *Item) brieTick() {
 	}
 }
 
-func (i *Item) sulfurasTick() {
+// Sulfuras is "Sulfuras, Hand of Ragnaros"
+type Sulfuras struct {
+	*Item
+}
+
+// Tick updates the quality and days remaining
+func (i *Sulfuras) Tick() {
 
 }
 
-func (i *Item) backstageTick() {
+// Backstage is "Backstage passes to a TAFKAL80ETC concert"
+type Backstage struct {
+	*Item
+}
+
+// Tick updates the quality and days remaining
+func (i *Backstage) Tick() {
 	i.days--
 	if i.quality >= 50 {
 		return
@@ -70,20 +94,24 @@ func New(name string, days, quality int) *Item {
 }
 
 // UpdateQuality ages the item by a day, and updates the quality of the item
-func UpdateQuality(items []*Item) {
+func UpdateQuality(items ...*Item) {
 	for _, item := range items {
 		switch item.name {
 		case "normal":
-			item.normalTick()
+			i := Normal{item}
+			i.Tick()
 			continue
 		case "Aged Brie":
-			item.brieTick()
+			i := Brie{item}
+			i.Tick()
 			continue
 		case "Sulfuras, Hand of Ragnaros":
-			item.sulfurasTick()
+			i := Sulfuras{item}
+			i.Tick()
 			continue
 		case "Backstage passes to a TAFKAL80ETC concert":
-			item.backstageTick()
+			i := Backstage{item}
+			i.Tick()
 			continue
 		}
 	}

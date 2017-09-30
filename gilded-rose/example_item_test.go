@@ -20,7 +20,7 @@ func ExampleGildedRose() {
 		fmt.Println(item)
 	}
 
-	UpdateQuality(items)
+	UpdateQuality(items...)
 
 	for _, item := range items {
 		fmt.Println(item)
