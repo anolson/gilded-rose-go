@@ -2,11 +2,22 @@ package gildedrose
 
 import "fmt"
 
+// Ticker requires a Tick method
+// which updates the quality and days remaining
+type Ticker interface {
+	Tick()
+}
+
 // Item describes an item sold by the Gilded Rose Inn
 type Item struct {
 	name    string
 	days    int
 	quality int
+}
+
+// Tick updates the quality and days remaining
+func (i Item) Tick() {
+
 }
 
 // String outputs a string representation of an Item
@@ -20,7 +31,7 @@ type Normal struct {
 }
 
 // Tick updates the quality and days remaining
-func (i *Normal) Tick() {
+func (i Normal) Tick() {
 	i.days--
 	if i.quality == 0 {
 		return
@@ -37,7 +48,7 @@ type Brie struct {
 }
 
 // Tick updates the quality and days remaining
-func (i *Brie) Tick() {
+func (i Brie) Tick() {
 	i.days--
 	if i.quality >= 50 {
 		return
@@ -56,7 +67,7 @@ type Sulfuras struct {
 }
 
 // Tick updates the quality and days remaining
-func (i *Sulfuras) Tick() {
+func (i Sulfuras) Tick() {
 
 }
 
@@ -66,7 +77,7 @@ type Backstage struct {
 }
 
 // Tick updates the quality and days remaining
-func (i *Backstage) Tick() {
+func (i Backstage) Tick() {
 	i.days--
 	if i.quality >= 50 {
 		return
@@ -96,23 +107,17 @@ func New(name string, days, quality int) *Item {
 // UpdateQuality ages the item by a day, and updates the quality of the item
 func UpdateQuality(items ...*Item) {
 	for _, item := range items {
+		var t Ticker
 		switch item.name {
 		case "normal":
-			i := Normal{item}
-			i.Tick()
-			continue
+			t = Normal{item}
 		case "Aged Brie":
-			i := Brie{item}
-			i.Tick()
-			continue
+			t = Brie{item}
 		case "Sulfuras, Hand of Ragnaros":
-			i := Sulfuras{item}
-			i.Tick()
-			continue
+			t = Sulfuras{item}
 		case "Backstage passes to a TAFKAL80ETC concert":
-			i := Backstage{item}
-			i.Tick()
-			continue
+			t = Backstage{item}
 		}
+		t.Tick()
 	}
 }
