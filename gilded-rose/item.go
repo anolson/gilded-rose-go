@@ -2,46 +2,46 @@ package gildedrose
 
 import "fmt"
 
-// Ticker requires a Tick method
-// which updates the quality and days remaining
-type Ticker interface {
-	Tick()
+// Updater is the interface that wraps the Update method.
+type Updater interface {
+	// Update updates the quality and days remaining.
+	Update()
 }
 
-// Item describes an item sold by the Gilded Rose Inn
+// Item describes an item sold by the Gilded Rose Inn.
 type Item struct {
 	name    string
 	days    int
 	quality int
 }
 
-// DaysRemaining returns the days left to sell the item in
+// DaysRemaining returns the days left to sell the item in.
 func (i *Item) DaysRemaining() int {
 	return i.days
 }
 
-// Quality returns the quality of the item
+// Quality returns the quality of the item.
 func (i *Item) Quality() int {
 	return i.quality
 }
 
-// Tick updates the quality and days remaining
-func (i Item) Tick() {
-
+// Update updates the quality and days remaining.
+func (i Item) Update() {
+	// noop
 }
 
-// String outputs a string representation of an Item
+// String outputs a string representation of an Item.
 func (i *Item) String() string {
 	return fmt.Sprintf("%s: %d days left, quality is %d", i.name, i.days, i.quality)
 }
 
-// Normal is a normal item
+// Normal is a normal item.
 type Normal struct {
 	*Item
 }
 
-// Tick updates the quality and days remaining
-func (i Normal) Tick() {
+// Update updates the quality and days remaining.
+func (i Normal) Update() {
 	i.days--
 	if i.quality == 0 {
 		return
@@ -52,13 +52,13 @@ func (i Normal) Tick() {
 	}
 }
 
-// Brie is an "Aged Brie"
+// Brie is an "Aged Brie".
 type Brie struct {
 	*Item
 }
 
-// Tick updates the quality and days remaining
-func (i Brie) Tick() {
+// Update updates the quality and days remaining.
+func (i Brie) Update() {
 	i.days--
 	if i.quality >= 50 {
 		return
@@ -71,13 +71,13 @@ func (i Brie) Tick() {
 	}
 }
 
-// Backstage is "Backstage passes to a TAFKAL80ETC concert"
+// Backstage is "Backstage passes to a TAFKAL80ETC concert".
 type Backstage struct {
 	*Item
 }
 
-// Tick updates the quality and days remaining
-func (i Backstage) Tick() {
+// Update updates the quality and days remaining.
+func (i Backstage) Update() {
 	i.days--
 	if i.quality >= 50 {
 		return
@@ -95,7 +95,7 @@ func (i Backstage) Tick() {
 	}
 }
 
-// New creates a new Item
+// New creates a new Item.
 func New(name string, days, quality int) *Item {
 	return &Item{
 		name:    name,
@@ -104,10 +104,10 @@ func New(name string, days, quality int) *Item {
 	}
 }
 
-// UpdateQuality ages the item by a day, and updates the quality of the item
+// UpdateQuality ages the item by a day, and updates the quality of the item.
 func UpdateQuality(items ...*Item) {
 	for _, item := range items {
-		var t Ticker
+		var t Updater
 		switch item.name {
 		case "normal":
 			t = Normal{item}
@@ -118,6 +118,6 @@ func UpdateQuality(items ...*Item) {
 		default:
 			t = item
 		}
-		t.Tick()
+		t.Update()
 	}
 }
