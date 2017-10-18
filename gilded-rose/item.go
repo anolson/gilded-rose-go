@@ -4,35 +4,25 @@ import "fmt"
 
 // Updater is the interface that wraps the Update method.
 type Updater interface {
-	// Update updates the quality and days remaining.
+	// Update updates the Quality and Days remaining.
 	Update()
 }
 
 // Item describes an item sold by the Gilded Rose Inn.
 type Item struct {
-	name    string
-	days    int
-	quality int
+	Name    string
+	Days    int
+	Quality int
 }
 
-// DaysRemaining returns the days left to sell the item in.
-func (i *Item) DaysRemaining() int {
-	return i.days
-}
-
-// Quality returns the quality of the item.
-func (i *Item) Quality() int {
-	return i.quality
-}
-
-// Update updates the quality and days remaining.
+// Update updates the Quality and Days remaining.
 func (i Item) Update() {
 	// noop
 }
 
 // String outputs a string representation of an Item.
 func (i *Item) String() string {
-	return fmt.Sprintf("%s: %d days left, quality is %d", i.name, i.days, i.quality)
+	return fmt.Sprintf("%s\t%d\t%d\t", i.Name, i.Days, i.Quality)
 }
 
 // Normal is a normal item.
@@ -40,15 +30,15 @@ type Normal struct {
 	*Item
 }
 
-// Update updates the quality and days remaining.
+// Update updates the Quality and Days remaining.
 func (i Normal) Update() {
-	i.days--
-	if i.quality == 0 {
+	i.Days--
+	if i.Quality == 0 {
 		return
 	}
-	i.quality--
-	if i.days <= 0 {
-		i.quality--
+	i.Quality--
+	if i.Days <= 0 {
+		i.Quality--
 	}
 }
 
@@ -57,17 +47,17 @@ type Brie struct {
 	*Item
 }
 
-// Update updates the quality and days remaining.
+// Update updates the Quality and Days remaining.
 func (i Brie) Update() {
-	i.days--
-	if i.quality >= 50 {
+	i.Days--
+	if i.Quality >= 50 {
 		return
 	}
-	if i.days <= 0 {
-		i.quality++
+	if i.Days <= 0 {
+		i.Quality++
 	}
-	if i.quality < 50 {
-		i.quality++
+	if i.Quality < 50 {
+		i.Quality++
 	}
 }
 
@@ -76,39 +66,30 @@ type Backstage struct {
 	*Item
 }
 
-// Update updates the quality and days remaining.
+// Update updates the Quality and Days remaining.
 func (i Backstage) Update() {
-	i.days--
-	if i.quality >= 50 {
+	i.Days--
+	if i.Quality >= 50 {
 		return
 	}
-	if i.days < 0 {
-		i.quality = 0
+	if i.Days < 0 {
+		i.Quality = 0
 		return
 	}
-	i.quality++
-	if i.days < 10 {
-		i.quality++
+	i.Quality++
+	if i.Days < 10 {
+		i.Quality++
 	}
-	if i.days < 5 {
-		i.quality++
+	if i.Days < 5 {
+		i.Quality++
 	}
 }
 
-// New creates a new Item.
-func New(name string, days, quality int) *Item {
-	return &Item{
-		name:    name,
-		days:    days,
-		quality: quality,
-	}
-}
-
-// UpdateQuality ages the item by a day, and updates the quality of the item.
+// UpdateQuality ages the item by a day, and updates the Quality of the item.
 func UpdateQuality(items ...*Item) {
 	for _, item := range items {
 		var t Updater
-		switch item.name {
+		switch item.Name {
 		case "normal":
 			t = Normal{item}
 		case "Aged Brie":
