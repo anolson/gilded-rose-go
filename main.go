@@ -28,7 +28,7 @@ func main() {
 		fmt.Println(item)
 	}
 
-	gildedrose.UpdateQuality(items...)
+	gildedrose.Tick(items...)
 
 	for _, item := range items {
 		fmt.Println(item)

@@ -23,8 +23,8 @@ func New(name string, days, quality int) *Item {
 	}
 }
 
-// UpdateQuality ages the item by a day, and updates the quality of the item
-func UpdateQuality(items ...*Item) {
+// Tick ages the item by a day, and updates the quality of the item
+func Tick(items ...*Item) {
 	for _, item := range items {
 		if item.name != "Aged Brie" && item.name != "Backstage passes to a TAFKAL80ETC concert" {
 			if item.quality > 0 {

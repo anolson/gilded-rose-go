@@ -48,7 +48,7 @@ var tests = []struct {
 func TestGildedRose(t *testing.T) {
 	for _, tt := range tests {
 		item := New(tt.name, tt.days, tt.quality)
-		UpdateQuality(item)
+		Tick(item)
 		if item.quality != tt.expectedQuality {
 			t.Errorf("\n%s %s\nexpected quality: %d\nactual quality: %d", tt.name, tt.description, tt.expectedQuality, item.quality)
 		}
