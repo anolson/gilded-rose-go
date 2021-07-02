@@ -2,7 +2,7 @@
 
 After watching [Sandi Metz's talk](https://www.youtube.com/watch?v=8bZh5LMaSmE)
 I thought I'd try this in Go. This is a fork of [Emily Bache's
-repo](https://github.com/emilybache/GildedRose-Refactoring-Kata). The master
+repo](https://github.com/emilybache/GildedRose-Refactoring-Kata). The main
 branch is the original code. I am using the [refactor
 branch](https://github.com/robphoenix/gilded-rose/tree/refactor) to refactor the
 code.
