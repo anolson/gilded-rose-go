@@ -28,7 +28,7 @@ func Tick(items ...*Item) {
 	for _, item := range items {
 		if item.name != "Aged Brie" && item.name != "Backstage passes to a TAFKAL80ETC concert" {
 			if item.quality > 0 {
-				if item.name != "Sulfuras, Hand of Ragnaros" {
+				if item.name != "Legendary Sulfuras, Hand of Ragnaros" {
 					item.quality = item.quality - 1
 				}
 			}
@@ -50,7 +50,7 @@ func Tick(items ...*Item) {
 			}
 		}
 
-		if item.name != "Sulfuras, Hand of Ragnaros" {
+		if item.name != "Legendary Sulfuras, Hand of Ragnaros" {
 			item.days = item.days - 1
 		}
 
@@ -58,7 +58,7 @@ func Tick(items ...*Item) {
 			if item.name != "Aged Brie" {
 				if item.name != "Backstage passes to a TAFKAL80ETC concert" {
 					if item.quality > 0 {
-						if item.name != "Sulfuras, Hand of Ragnaros" {
+						if item.name != "Legendary Sulfuras, Hand of Ragnaros" {
 							item.quality = item.quality - 1
 						}
 					}
